@@ -16,4 +16,6 @@ mongoose.connect(
   "mongodb+srv://root:marianne@vorwarts.mewdj.mongodb.net/vorwarts?retryWrites=true&w=majority"
 );
 
-app.listen(5000, () => {});
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`running`);
+});
