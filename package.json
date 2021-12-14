@@ -2,9 +2,9 @@
   "name": "vorwarts",
   "version": "1.0.0",
   "description": "vorwarts api",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "app.js"
+    "start": "node src/app.js"
   },
   "author": "von weinkeller",
   "license": "MIT",
