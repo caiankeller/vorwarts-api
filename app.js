@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
+require("dotenv").config();
+
 const routes = require("./routes");
 
 const app = express();
@@ -12,9 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-mongoose.connect(
-  "mongodb+srv://root:marianne@vorwarts.mewdj.mongodb.net/vorwarts?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.BD_URL);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`running`);

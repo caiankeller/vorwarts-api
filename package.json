@@ -2,15 +2,16 @@
   "name": "vorwarts",
   "version": "1.0.0",
   "description": "vorwarts api",
-  "main": "src/app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node src/app.js"
+    "start": "app.js"
   },
   "author": "von weinkeller",
   "license": "MIT",
   "private": false,
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "highlight.js": "^11.3.1",
     "json-query": "^2.2.2",
