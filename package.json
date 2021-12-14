@@ -1,4 +1,14 @@
 {
+  "name": "vorwarts",
+  "version": "1.0.0",
+  "description": "vorwarts api",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "author": "von weinkeller",
+  "license": "MIT",
+  "private": false,
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -7,5 +17,8 @@
     "lodash": "^4.17.21",
     "mongoose": "^6.0.14",
     "nodemon": "^2.0.15"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
