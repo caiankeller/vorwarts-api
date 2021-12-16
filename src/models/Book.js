@@ -5,7 +5,8 @@ const BookSchema = new mongoose.Schema({
     type: String,
     maxlength: 70,
   },
-  firstPublishment: {
+  year: {
+    //year of the first publishment
     type: Number,
     maxlength: 4,
   },
@@ -13,10 +14,11 @@ const BookSchema = new mongoose.Schema({
     type: String,
     maxlength: 40,
   },
-  genre: {
+  genres: {
     type: Array,
   },
-  originCountry: {
+  country: {
+    //country original
     type: String,
   },
   language: {
@@ -33,15 +35,13 @@ const BookSchema = new mongoose.Schema({
       maxlength: 255,
     },
   },
-  color: {
-    type: Number,
-    maxlength: 6,
-  },
-  wikipedia: {
-    type: String,
-    maxlength: 255,
-  },
-  availableDownloads: [{ type: String, extension: String, url: String }],
+  downloads: [
+    {
+      type: String,
+      extension: String,
+      url: String,
+    },
+  ],
 });
 
 module.exports = mongoose.model("Book", BookSchema);

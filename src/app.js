@@ -16,6 +16,4 @@ app.use(routes);
 
 mongoose.connect(process.env.BD_URL);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`running`);
-});
+app.listen(process.env.PORT || 3000);
