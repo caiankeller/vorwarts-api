@@ -10,10 +10,10 @@ module.exports = {
     const needValues = ["title", "author", "year", "country", "language"];
 
     var queryResolve;
-    
+
     //verify if the queries in empty and save as a object ex.: {title: "Die Leiden des jungen Werthers"}
     //also eliminate bad keys
-    if (typeof querie !== "undefined") {
+    if (typeof queries !== "undefined") {
       queryResolve = Object.fromEntries(
         Object.entries(queries).filter(
           ([key, value]) =>
