@@ -6,6 +6,8 @@ module.exports = {
     const { genres, limit, offset, groupby } = req.body;
     const queries = req.body.queries;
 
+    console.log(queries)
+
     //all the needed queries name for security
     const needValues = ["title", "author", "year", "country", "language"];
 
