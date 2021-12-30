@@ -3,39 +3,45 @@ const { _ } = require("lodash");
 
 module.exports = {
   async getBooks(req, res) {
-    const { genres, limit, offset, groupby } = req.body;
-    const queries = req.body.queries;
+    const {
+      title,
+      author,
+      year,
+      country,
+      language,
+      genres,
+      limit,
+      offset,
+      groupby,
+    } = req.query;
 
-    //all the needed queries name for security
-    const needValues = ["title", "author", "year", "country", "language"];
+    //selecting main queries
+    const needValues = { title, author, year, country, language };
 
     var queryResolve;
 
     //verify if the queries in empty and save as a object ex.: {title: "Die Leiden des jungen Werthers"}
     //also eliminate bad keys
-    if (typeof queries !== "undefined") {
-      queryResolve = Object.fromEntries(
-        Object.entries(queries).filter(
-          ([key, value]) =>
-            typeof value !== "undefined" &&
-            value.length > 0 &&
-            needValues.includes(key)
-        )
-      );
-    }
+    queryResolve = Object.fromEntries(
+      Object.entries(needValues).filter(
+        ([key, value]) => typeof value !== "undefined" && value.length > 0
+      )
+    );
 
     let genreResolve = {};
     let query;
 
     //return, if exists, the genres as: {...results from queryresovle... genres: { '$in': [ "children's book", 'fantasy' ] } }
-    if (typeof genres !== "undefined" && genres.length > 0) {
-      genreResolve = genres.filter(
-        (genre) => genre !== "undefined" && genre.length > 0
-      );
-      query = { ...queryResolve, genres: { $in: genreResolve } };
-    } else {
-      query = { ...queryResolve };
-    }
+    // if (typeof genres !== "undefined" && genres.length > 0) {
+    //   genreResolve = genres.filter(
+    //     (genre) => genre !== "undefined" && genre.length > 0
+    //   );
+    //   query = { ...queryResolve, genres: { $in: genreResolve } };
+    // } else {
+    //   query = { ...queryResolve };
+    // }
+
+    query = queryResolve;
 
     Book.find(
       query,
@@ -61,7 +67,7 @@ module.exports = {
               .send({ ok: false, message: "groupby not available" });
           }
 
-          //if exists, groupby goruped by lodash
+          //if exists, groupby grouped by lodash
           const data = _.chain(re)
             .groupBy(groupby)
             .map((value, key) => ({
