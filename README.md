@@ -1,6 +1,6 @@
 [<h1>**Vorwärts**</h1>](https://vorwarts.herokuapp.com)
 
-```
+```json
 {
 	"ok": true,
 	"data": [
@@ -25,19 +25,16 @@
 }
 ```
 
-<h2>Endpoint</h2>
+<h2>Endpoints</h2>
 
-<span style="background-color: #8aff8a; color: black; border-radius: 5px">GET</span> **https://vorwartsapi.herokuapp.com/**
+ **https://vorwartsapi.herokuapp.com/books**
 
-_____
-<h2>Methods already implemented</h2>
-At time, just books are enable for data request, where in the future  will other data avaliable.
+At time, just books are avaliable for data fetching. In the future, these other will be implemented.
 
 - [x] /books
 - [ ] /genres
 - [ ] /authors
 - [ ] /years...
-_____
 
 <h2>Getting in the /books</h2>
 <h3>Options</h3>
@@ -50,7 +47,7 @@ _____
     - number //origin year publishmment ex.: '1984'
 - country
     - string //stands for country of origin from book
-- language",
+- language
     - string //language originally written
 - genres(not supported yet)
     - array //ex.: ['adventure', 'childrens book'] 
@@ -63,12 +60,12 @@ _____
 
 <h2>Basically...</h2>
 
-```
+```javascript
 axios.get("https://vorwartsapi.herokuapp.com/books", {
-    "params": {
-      "author": "Carlo Collodi",
+    params: {
+      author: "Carlo Collodi",
       groupby: "author"
-      }
+    }
   })
 ```
 
