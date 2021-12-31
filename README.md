@@ -29,7 +29,7 @@
 
  **https://vorwartsapi.herokuapp.com/books**
 
-At time, just books are avaliable for data fetching. In the future, these other will be implemented.
+At time, just books are avaliable for data fetching. In the future, these other will be implemented:
 
 - [x] /books
 - [ ] /genres
@@ -63,14 +63,14 @@ At time, just books are avaliable for data fetching. In the future, these other 
 ```javascript
 axios.get("https://vorwartsapi.herokuapp.com/books", {
     params: {
-      author: "Carlo Collodi",
+      author: "Johann Wolfgang von Goethe",
       groupby: "author"
     }
   })
 ```
 
 <h2>Structure</h2>
-The structure follow the MVC pattern. It's needed to configure dotenv file with the BD_URL parameter: 
+If you want to get inot the code, the structure follows the MVC pattern. It's just needed to configure the dotenv file with the BD_URL parameter like: 
 
 ```
 BD_URL= [...]
