@@ -17,6 +17,7 @@ module.exports = {
 
     //selecting main queries
     const needValues = { title, author, year, country, language };
+    console.log(typeof genres);
 
     var queryResolve;
 
@@ -30,17 +31,17 @@ module.exports = {
 
     let genreResolve = {};
     let query;
-
     //return, if exists, the genres as: {...results from queryresovle... genres: { '$in': [ "children's book", 'fantasy' ] } }
-    // if (typeof genres !== "undefined" && genres.length > 0) {
-    //   genreResolve = genres.filter(
-    //     (genre) => genre !== "undefined" && genre.length > 0
-    //   );
-    //   query = { ...queryResolve, genres: { $in: genreResolve } };
-    // } else {
-    //   query = { ...queryResolve };
-    // }
+    if (typeof genres !== "undefined" && genres.length > 0) {
+      genreResolve = genres.filter(
+        (genre) => genre !== "undefined" && genre.length > 0
+      );
+      query = { ...queryResolve, genres: { $in: genreResolve } };
+    } else {
+      query = { ...queryResolve };
+    }
 
+    console.log(query);
     query = queryResolve;
 
     Book.find(
@@ -50,7 +51,7 @@ module.exports = {
       (er, re) => {
         if (re.length === 0)
           return res
-            .status(400)
+            .status(404)
             .send({ ok: false, message: "no book has found" });
 
         //groups stuff  here.
@@ -63,7 +64,7 @@ module.exports = {
             groupby !== "language"
           ) {
             return res
-              .status(400)
+              .status(406)
               .send({ ok: false, message: "groupby not available" });
           }
 
