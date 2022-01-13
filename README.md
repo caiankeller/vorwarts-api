@@ -45,26 +45,25 @@ Vorwärts was born to be an easy way to get books in the public domain, free of 
 Well, so...
 
 ### **/books**
-___
 `GET` | Books
 
 **params**
 
-Optional params:
+Optional parameters
 
-* **Title**
-* **Author**
-* **Year** `Origin year of publishmment. Ex.: {"year": "1984"}`
-* **Country** `Stands for country of origin from book, it must be for extensive. Ex.: {"country": "Germany"}`
-* **Language** `Language originally written, download options usually'll be in the same language` 
-* **Genres** `CAUTION, 🙃 a bitte differente, to pass more than one genre. Divide it in ,(Coma). Ex.: {"genres": "Fantasy, Children's Book"}`
-* **Limit** `stands for limit of books per request. The default limit is 10`
-* **Offset** `Skip the firsts books.`
-* **Groupby** `Group books by field. Try: author, genres, year, country or language. Ex.: {"groupby": "author"}`
+* `Title`
+* `Author`
+* `Year` *Year of publication. Ex.: {"year": "1984"}*
+* `Country` *Stands for the country where the book was originally published. The short version of the name should be used. Ex.: {"country": "Germany"}*
+* `Language` *Language originally written, the download options will usually be in the same language* 
+* `Genres` *CAUTION🙃,  a slightly different field. To pass more than one gender, divide it into commas. Ex.: {"genres": "Fantasy, Children's Book"}*
+* `Limit` *stands for limit of books per request. The default limit is 10*
+* `Offset` *Skip the first books.*
+* `Groupby` *Group books by field. Try: author, genres, year, country or language. Ex.: {"groupby": "author"}*
 
-Required params:
+Required parameters
 
-* **There's no that here, neither even tokens or rate limit(For while). Be gently and respectful.**
+* There are no required parameters here, not even tokens or rate limits(For now, be kind and respectful).
 
 ### **Basically**
 
@@ -77,7 +76,7 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
   })
 ```
 
-### **If everything gonne right, expect for something like**
+### **If all goes well, expect something like that**
 
 ```json
 {
@@ -106,13 +105,13 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 
 ### **If not 😳**
 
-The most commons(the onlys, to be honest) erros that the app can response is
+The most common errors (the only ones, to be honest) that the application can respond to are
 
-`404` It means that hasn't found any book in the specifications.
+`404` This means that the application has not found any books in these specifications.
 
-`406` It means that the groupby selected attribute are not enable.
+`406` This means that the group by selected attribute is not enabled.
 
-But we response with a beautiful json with the information
+But we responded with a nice json saying what exactly happened.
 
 ```json
 {
@@ -123,7 +122,7 @@ But we response with a beautiful json with the information
 
 ## **"But I want to help"**
 
-* ### **"I programm":**
+* ### **"I program":**
 
 😮‍💨 Ufa.
 
@@ -131,20 +130,22 @@ Just make a pull request. I don't know to manage a project. But soon as possible
 
 `BD_URL = `
 
-* ### **"I don't programm":**
-We'll come back for you, I promise <3. Since you're in the GitHub, if you know to commit, any help bringing new books to Vorwaärts are welcome in the [library](https://github.com/vonweinkeller/vorwarts-library) repository. Be carefully and attends if the book is in the public domain and translations copyrights.
+`node src/app.js` to run 
 
-> Is it worth it? Everything is worth the effort
->
-> If the soul isn't small.
->
-> Who wants to pass beyond Bojador
->
-> Must first pass beyond the suffering.
->
-> God gave to the sea danger and the abyss,
-> 
-> But in it lies what the sky mirrored.
+* ### **"I don't program":**
 
+We'll be back for you, I promise <3. Since you're on GitHub, if you know how to commit, any help with bringing new books to Vorwärts is welcome in the [library](https://github.com/vonweinkeller/vorwarts-library)  repository. Just be careful and pay attention to whether the book is in the public domain and whether there is copyright on the translation.
 
-Fernando Pessoa. Portuguese Sea.
+> Is it worth it? Everything is worth the effort<br>
+> If the soul isn't small.<br>
+> Who wants to pass beyond Bojador<br>
+> Must first pass beyond the suffering.<br>
+> God gave to the sea danger and the abyss,<br>
+> But in it lies what the sky mirrored.<br>
+
+**Fernando Pessoa, Portuguese Sea**.
+
+## **Issues**
+
+- [ ] All paramedics are case sensitive, which makes the request more likely to respond with no book. A solution will be implemented as soon as I discover a good one.
+- [ ] Find more issues to put here.
