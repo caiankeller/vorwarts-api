@@ -2,6 +2,7 @@
 
 ```json
 {
+	"status": 200,
 	"ok": true,
 	"data": [
 		{
@@ -45,7 +46,9 @@ Vorwärts was born to be an easy way to get books in the public domain, free of 
 Well, so...
 
 ### **/books**
-`GET` | Books
+`GET` | Get books data.
+
+>All requests are sorted by author ascending..
 
 **params**
 
@@ -57,13 +60,13 @@ Optional parameters
 * `Country` *Stands for the country where the book was originally published. The short version of the name should be used. Ex.: {"country": "Germany"}*
 * `Language` *Language originally written, the download options will usually be in the same language* 
 * `Genres` *CAUTION🙃,  a slightly different field. To pass more than one gender, divide it into commas. Ex.: {"genres": "Fantasy, Children's Book"}*
-* `Limit` *stands for limit of books per request. The default limit is 10*
-* `Offset` *Skip the first books.*
+* `Limit` *Stands for limit of books per request. The default limit is 10*
+* `Offset` *Skip the first books*
 * `Groupby` *Group books by field. Try: author, genres, year, country or language. Ex.: {"groupby": "author"}*
 
 Required parameters
 
-* There are no required parameters here, not even tokens or rate limits(For now, be kind and respectful).
+* There are no required parameters here, not even tokens or rate limits (For now, be kind and respectful).
 
 ### **Basically**
 
@@ -76,10 +79,11 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
   })
 ```
 
-### **If all goes well, expect something like that**
+### **If everything goes well, expect something like that**
 
 ```json
 {
+	"status": 200,
 	"ok": true,
 	"data": [
 		{
@@ -103,38 +107,45 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 }
 ```
 
-### **If not 😳**
+### **If it not.. 😳**
 
-The most common errors (the only ones, to be honest) that the application can respond to are
+The most common errors (the only ones, to be honest) that the application can response are
 
-`404` This means that the application has not found any books in these specifications.
+`404` This means that the application has not found any books in these specifications. The params are case-sensitive, so, caution.
 
-`406` This means that the group by selected attribute is not enabled.
+`406` This means that the 'groupby' selected attribute is not enabled.
 
-But we responded with a nice json saying what exactly happened.
+But we response with a nice json saying what exactly happened.
 
 ```json
 {
+	"status": 400,
 	"ok": false,
 	"message": "no book has found"
 }
 ```
 
-## **"But I want to help"**
+## **"I want to help"**
 
 * ### **"I program":**
 
 😮‍💨 Ufa.
 
-Just make a pull request. I don't know to manage a project. But soon as possible, I deploy it at heroku. The project follows MVC pattern. You just need to configure the dotenv file in the `/src`.
+Just make a pull request. I don't know how to manage a project. But as soon as possible, I will deploy it on Heroku. The project follows the MVC pattern. You only need to configure the dotenv file and start coding.
+ 
+.env:
+`BD_URL=`
 
-`BD_URL = `
-
-`node src/app.js` to run 
+`node src/app.js` or  `yarn run start`
 
 * ### **"I don't program":**
 
 We'll be back for you, I promise <3. Since you're on GitHub, if you know how to commit, any help with bringing new books to Vorwärts is welcome in the [library](https://github.com/vonweinkeller/vorwarts-library)  repository. Just be careful and pay attention to whether the book is in the public domain and whether there is copyright on the translation.
+
+## **Issues**
+
+- [ ] All paramedics are case sensitive, which makes the request more likely to respond with no book. A solution will be implemented as soon as I discover a good one.
+- [ ] Find bugs to put here.
 
 > Is it worth it? Everything is worth the effort<br>
 > If the soul isn't small.<br>
@@ -144,8 +155,3 @@ We'll be back for you, I promise <3. Since you're on GitHub, if you know how to 
 > But in it lies what the sky mirrored.<br>
 
 **Fernando Pessoa, Portuguese Sea**.
-
-## **Issues**
-
-- [ ] All paramedics are case sensitive, which makes the request more likely to respond with no book. A solution will be implemented as soon as I discover a good one.
-- [ ] Find more issues to put here.
