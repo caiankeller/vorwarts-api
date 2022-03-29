@@ -1,47 +1,47 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const BookSchema = new mongoose.Schema({
   title: {
     type: String,
-    maxlength: 70,
+    maxlength: 70
   },
   year: {
-    //year of the first publishment
+    // year of the first publishment
     type: Number,
-    maxlength: 4,
+    maxlength: 4
   },
   author: {
     type: String,
-    maxlength: 40,
+    maxlength: 40
   },
   genres: {
-    type: Array,
+    type: Array
   },
   country: {
-    //country original
-    type: String,
+    // country original
+    type: String
   },
   language: {
-    type: String,
+    type: String
   },
   cover: {
     type: Object,
     highQuality: {
       type: String,
-      maxlength: 255,
+      maxlength: 255
     },
     lowQuality: {
       type: String,
-      maxlength: 255,
-    },
+      maxlength: 255
+    }
   },
   downloads: [
     {
       type: String,
       extension: String,
-      url: String,
-    },
-  ],
-});
+      url: String
+    }
+  ]
+})
 
-module.exports = mongoose.model("Book", BookSchema);
+module.exports = mongoose.model('Book', BookSchema)
