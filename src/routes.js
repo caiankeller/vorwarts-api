@@ -9,7 +9,7 @@ routes.get('/books', BookController.getBooks)
 routes.get('/genres', BookController.getGenres)
 routes.get('/countries', BookController.getCountries)
 
-routes.post('/users', UserController.createUser)
+routes.post('/signup', UserController.createUser)
 routes.post('/login', UserController.authenticationUser)
 
 module.exports = routes
