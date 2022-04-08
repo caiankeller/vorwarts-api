@@ -49,7 +49,7 @@ module.exports = {
           return res.status(400).send({
             status: 400,
             ok: false,
-            message: 'an error occured in the database.'
+            message: 'An une'
           })
         }
 
@@ -106,7 +106,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'an error occured in the database.'
+        message: 'An unexpected error occured'
       })
     })
   },
@@ -123,7 +123,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'an error cocurred in the database.'
+        message: 'An unexpected error occured'
       })
     })
   }

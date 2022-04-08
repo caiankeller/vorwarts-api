@@ -2,44 +2,53 @@ const mongoose = require('mongoose')
 
 const BookSchema = new mongoose.Schema({
   title: {
-    type: String,
-    maxlength: 70
+    original: {
+      type: String
+    },
+    english: {
+      type: String
+    }
   },
   year: {
-    // year of the first publishment
-    type: Number,
-    maxlength: 4
+    type: Number
   },
   author: {
-    type: String,
-    maxlength: 40
+    type: String
   },
   genres: {
     type: Array
   },
   country: {
-    // country original
+    type: String
+  },
+  countryCode: {
     type: String
   },
   language: {
     type: String
   },
   cover: {
-    type: Object,
     highQuality: {
-      type: String,
-      maxlength: 255
+      type: String
     },
     lowQuality: {
-      type: String,
-      maxlength: 255
+      type: String
     }
   },
-  downloads: [
+  files: [
     {
-      type: String,
-      extension: String,
-      url: String
+      type: {
+        type: String
+      },
+      extension: {
+        type: String
+      },
+      url: {
+        type: String
+      },
+      language: {
+        type: String
+      }
     }
   ]
 })
