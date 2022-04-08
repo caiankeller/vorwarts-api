@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    maxlength: 30
+    maxlength: 32
   },
   name: {
     type: String,
@@ -16,10 +16,6 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     maxlength: 255
-  },
-  permission: {
-    type: String,
-    maxlength: 10
   }
 })
 

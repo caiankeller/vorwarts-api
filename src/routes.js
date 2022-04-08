@@ -10,6 +10,6 @@ routes.get('/genres', BookController.getGenres)
 routes.get('/countries', BookController.getCountries)
 
 routes.post('/signup', UserController.createUser)
-routes.post('/login', UserController.authenticationUser)
+routes.use('/login', UserController.authenticationUser)
 
 module.exports = routes

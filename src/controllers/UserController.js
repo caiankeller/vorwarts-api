@@ -3,9 +3,10 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
+// 95% built by copilot :D
 module.exports = {
   async authenticationUser (req, res) {
-    const { username, password } = req.body
+    const { username, password } = req.query
 
     if (!username || !password) {
       return res.status(400).send({
@@ -21,7 +22,7 @@ module.exports = {
       return res.status(404).send({
         status: 404,
         ok: false,
-        message: 'user not found'
+        message: 'User hasn\'t been found'
       })
     }
 
@@ -30,21 +31,24 @@ module.exports = {
         return res.status(401).send({
           status: 401,
           ok: false,
-          message: 'invalid password'
+          message: 'Invalid Password'
         })
       }
 
       const { _id } = user
 
       const token = `Bearer ${jwt.sign({ _id }, process.env.JSON_WEB_TOKEN_KEY, {
-                expiresIn: 86400
-            })}`
+        expiresIn: 86400
+      })}`
 
       return res.status(200).send({
         status: 200,
         ok: true,
         message: 'user authenticated',
-        token: token
+        token: token,
+        username: user.username,
+        email: user.email,
+        name: user.name
       })
     })
   },
@@ -93,13 +97,14 @@ module.exports = {
     })
   },
   async createUser (req, res) {
-    const { username, name, password, email } = req.body
+    const { username, password, email } = req.body
+    console.log(username, password, email)
 
-    if (!username || !name || !password || !email) {
+    if (!username || !password || !email) {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'username, name, password or email is empty'
+        message: 'Username, password or email is empty'
       })
     }
 
@@ -108,13 +113,12 @@ module.exports = {
         return res.status(400).send({
           status: 400,
           ok: false,
-          message: 'an error occured in the request'
+          message: 'An unexpected error occured'
         })
       }
 
       await User.create({
         username,
-        name,
         password: hash,
         email
       }).then(() => {
@@ -125,7 +129,7 @@ module.exports = {
       }).catch((er) => res.status(400).send({
         status: 400,
         ok: false,
-        message: er
+        message: 'An unexpected error occured'
       })
       )
     })
