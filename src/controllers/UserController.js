@@ -12,7 +12,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'username or password is empty'
+        message: 'Username or password is empty.'
       })
     }
 
@@ -22,7 +22,7 @@ module.exports = {
       return res.status(404).send({
         status: 404,
         ok: false,
-        message: 'User hasn\'t been found'
+        message: 'User hasn\'t been found.'
       })
     }
 
@@ -31,7 +31,7 @@ module.exports = {
         return res.status(401).send({
           status: 401,
           ok: false,
-          message: 'Invalid Password'
+          message: 'Invalid Password.'
         })
       }
 
@@ -59,7 +59,7 @@ module.exports = {
       return res.status(401).send({
         status: 401,
         ok: false,
-        message: 'token not provided'
+        message: 'Token not provided.'
       })
     }
 
@@ -70,7 +70,7 @@ module.exports = {
         return res.status(401).send({
           status: 401,
           ok: false,
-          message: 'token invalid'
+          message: 'Token invalid.'
         })
       }
 
@@ -79,7 +79,7 @@ module.exports = {
           return res.status(400).send({
             status: 400,
             ok: false,
-            message: 'an error occured in the request'
+            message: 'An unexpected error has occurred.'
           })
         }
 
@@ -87,7 +87,7 @@ module.exports = {
           return res.status(404).send({
             status: 404,
             ok: false,
-            message: 'user not found'
+            message: 'user not found.'
           })
         }
 
@@ -104,7 +104,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'Username, password or email is empty'
+        message: 'Username, password or email is empty.'
       })
     }
 
@@ -113,7 +113,7 @@ module.exports = {
         return res.status(400).send({
           status: 400,
           ok: false,
-          message: 'An unexpected error occured'
+          message: 'An unexpected error occured.'
         })
       }
 
@@ -129,7 +129,7 @@ module.exports = {
       }).catch((er) => res.status(400).send({
         status: 400,
         ok: false,
-        message: 'An unexpected error occured'
+        message: 'An unexpected error occured.'
       })
       )
     })

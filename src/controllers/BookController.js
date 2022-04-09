@@ -56,7 +56,7 @@ module.exports = {
         if (re.length === 0) {
           return res
             .status(404)
-            .send({ status: 404, ok: false, message: 'no book has found' })
+            .send({ status: 404, ok: false, message: 'No books were found.' })
         }
 
         // groups stuff  here.
@@ -71,7 +71,7 @@ module.exports = {
             return res.status(406).send({
               status: 406,
               ok: false,
-              message: 'group by not available'
+              message: 'Group by not available.'
             })
           }
 
@@ -106,7 +106,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'An unexpected error occured'
+        message: 'An unexpected error occured.'
       })
     })
   },
@@ -123,7 +123,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'An unexpected error occured'
+        message: 'An unexpected error occured.'
       })
     })
   }
