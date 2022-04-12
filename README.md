@@ -57,7 +57,7 @@ Vorwärts was born to be an easy way to get books in the public domain, free of 
 
 > All requests are sorted by author ascending..
 
-**params**
+**parameters**
 
 * `Title`
 * `Author`
@@ -73,7 +73,7 @@ Vorwärts was born to be an easy way to get books in the public domain, free of 
 
 ```javascript
 axios.get("https://vorwartsapi.herokuapp.com/books", {
-	params: {
+	parameters: {
 		author: "Johann Wolfgang von Goethe",
     	groupby: "author"
 	}
@@ -113,7 +113,7 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 ### **/countries**
 `GET` | Get countries with books available.
 
-**params**
+**parameters**
 
 > No parameters are available.
 
@@ -135,7 +135,7 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 ### **/genres**
 `GET` | Get all genres in the database.
 
-**params**
+**parameters**
 
 > No parameters are available.
 
@@ -174,7 +174,7 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 ### **/signup**
 `POST` | Post an user in the database.
 
-**params**
+**parameters**
 
 * `Username` *At least 4 characters longer.*
 * `Email`
@@ -199,7 +199,7 @@ axios.post("https://vorwartsapi.herokuapp.com/signup", {
 ### **/login**
 `GET` | Make authentication in passed credentials.
 
-**params**
+**parameters**
 
 * `Username`
 * `Password`
@@ -208,7 +208,7 @@ axios.post("https://vorwartsapi.herokuapp.com/signup", {
 
 ```javascript
 axios.get("https://vorwartsapi.herokuapp.com/login", {
-        params: {
+        parameters: {
           username: "Johann Wolfgang von Goethe",
           password: "hyper secure password"
         }
@@ -233,7 +233,7 @@ axios.get("https://vorwartsapi.herokuapp.com/login", {
 
 > This method will soon be improved by creating a token manager.
 
-**params**
+**parameters**
 
 * `Token` *Pass the current token throught headers as "authorization"*
 
@@ -262,7 +262,7 @@ axios.get("https://vorwartsapi.herokuapp.com/token", {
 
 > File uploads are not available yet.
 
-**params**
+**parameters**
 
 * `Token` *Pass the current form through the headers as "authorization".*
 
