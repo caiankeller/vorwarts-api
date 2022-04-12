@@ -12,18 +12,18 @@ module.exports = {
       genres,
       limit,
       offset,
-      groupby
+      groupby,
+      user
     } = req.query
 
     let query
 
     // selecting main queries
-    const needValues = { title, author, year, country, language }
+    const queries = { title, author, year, country, language, user }
 
-    // verify if the queries in empty and save as a object ex.: {title: "Die Leiden des jungen Werthers"}
-    // also eliminate bad keys
+    // delete empty queries and save as object
     query = Object.fromEntries(
-      Object.entries(needValues).filter(
+      Object.entries(queries).filter(
         ([key, value]) => typeof value !== 'undefined' && value.length > 0
       )
     )
@@ -75,7 +75,7 @@ module.exports = {
             })
           }
 
-          // if exists, groupby grouped by lodash
+          // if exists, groupby grouped models with lodash
           const data = _.chain(re)
             .groupBy(groupby)
             .map((value, key) => ({
@@ -85,46 +85,108 @@ module.exports = {
           return res.status(200).send({ status: 200, ok: true, data: data })
         }
 
+        // if not exists, return all books
         return res.status(200).send({ status: 200, ok: true, data: re })
       }
     )
   },
   async getGenres (req, res) {
-    Book.find({}).select('genres').then((re) => {
-      const genres = []
-      let u = 0
-      while (re.length > u) {
-        let i = 0
-        while (re[u].genres.length > i) {
-          genres.push(re[u].genres[i])
-          i++
+    Book.find({})
+      .select('genres')
+      .then((re) => {
+        const genres = []
+        let u = 0
+
+        while (re.length > u) {
+          let i = 0
+
+          while (re[u].genres.length > i) {
+            genres.push(re[u].genres[i])
+            i++
+          }
+          u++
         }
-        u++
-      }
-      return res.status(200).send({ status: 200, ok: true, data: _.uniq(genres) })
-    }).catch(er => {
-      return res.status(400).send({
-        status: 400,
-        ok: false,
-        message: 'An unexpected error occured.'
+        return res
+          .status(200)
+          .send({ status: 200, ok: true, data: _.uniq(genres) })
       })
-    })
+      .catch((er) => {
+        return res.status(400).send({
+          status: 400,
+          ok: false,
+          message: 'An unexpected error occured.'
+        })
+      })
   },
   async getCountries (req, res) {
-    Book.find({}).select('country').then((re) => {
-      const countries = []
-      let u = 0
-      while (re.length > u) {
-        countries.push(re[u].country)
-        u++
-      }
-      return res.status(200).send({ status: 200, ok: true, data: _.uniq(countries) })
-    }).catch(er => {
-      return res.status(400).send({
-        status: 400,
-        ok: false,
-        message: 'An unexpected error occured.'
+    Book.find({})
+      .select('country')
+      .then((re) => {
+        const countries = []
+        let u = 0
+
+        while (re.length > u) {
+          countries.push(re[u].country)
+          u++
+        }
+        return res
+          .status(200)
+          .send({ status: 200, ok: true, data: _.uniq(countries) })
       })
+      .catch((er) => {
+        return res.status(400).send({
+          status: 400,
+          ok: false,
+          message: 'An unexpected error occured.'
+        })
+      })
+  },
+  async postBook (req, res) {
+    const { title, author, year, country, language, genres, countryCode } = req.body
+    const user = req.user.username
+
+    const bodies = {
+      title,
+      author,
+      year,
+      country,
+      language,
+      genres,
+      countryCode
+    }
+
+    // check if all fields are filled
+    const body = Object.fromEntries(
+      Object.entries(bodies).map(([key, value]) => {
+        if (typeof value !== 'undefined' && value.length > 0) {
+          return [key, value]
+        }
+
+        return res.status(400).send({
+          status: 400,
+          ok: false,
+          message: 'All fields are required.'
+        })
+      })
+    )
+
+    await Book.create({
+      body,
+      user
     })
+      .then((re) => {
+        return res.status(201).send({
+          status: 201,
+          ok: true,
+          message: 'Book created successfully.'
+        })
+      })
+      .catch((er) => {
+        return res.status(400).send({
+          status: 400,
+          ok: false,
+          message: 'An unexpected error occured.'
+        })
+      })
   }
 }

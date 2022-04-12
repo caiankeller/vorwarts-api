@@ -1,28 +1,30 @@
 # [**Vorwärts**](https://vorwarts.herokuapp.com)
 
-Vorwärts is not yet released or in its final state. And it will only be launched when a better way to support community contribution is created. However, the API and library as well as the already hosted books are available.
-
 ```json
 {
 	"status": 200,
 	"ok": true,
 	"data": [
 		{
-			"author": "Johann Wolfgang von Goethe",
-			"books": [
+			"_id": "61ba1b7024a1157ef54f121d",
+			"title": "Alice's Adventures in the Wonderland",
+			"author": "Lewis Carroll",
+			"language": "English",
+			"genres": [
+				"Fantasy",
+				"Literary nonsense"
+			],
+			"country": "United Kingdom",
+			"countryCode": "GB",
+			"year": 1865,
+			"files": [
 				{
-					"downloads": [],
-					"_id": "61ba1d7e24a1157ef54f1220",
-					"title": "The Sorrows of Young Werther",
-					"author": "Johann Wolfgang von Goethe",
-					"genres": [
-						"Epistolary novel"
-					],
-					"language": "German",
-					"country": "Germany",
-					"year": 1774
+					"type": "Vorwärts",
+					"extension": "epub",
+					"url": "https://raw.githubusercontent.com/vonweinKeller/vorwarts-library/main/alice/Alice'sAdventuresinWonderland.epub"
 				}
-			]
+			],
+			"user": "caian"
 		}
 	]
 }
@@ -30,31 +32,32 @@ Vorwärts is not yet released or in its final state. And it will only be launche
 
 ## **Why?** 
 
-Vorwärts was born to be an easy way to get books in the public domain, free of any publicity and completely transparent. The ideology of Vorwärts is to maintain the neutrality of all these books written by incredible authors and which now belong to everyone.
+Vorwärts was born to be an easy way to get books in the public domain, free of any advertising and in a completely transparent way. The ideology of Vorwärts is to maintain the neutrality of all these books written by amazing authors and that now belong to everyone.
 
-# **Start Using the API**
+# **Getting started**
 
-## **Root**
+## **URL**
 
 **`https://vorwartsapi.herokuapp.com`**
 
 ## **EndPoints**
 
 - [x] /books
-- [ ] /genres
-- [ ] /authors
-- [ ] /years...
+- [x] /book
+- [x] /genres
+- [x] /countries
+- [x] /signup
+- [x] /login
+...
 
-Well, so...
+## **Public endpoints**
 
 ### **/books**
 `GET` | Get books data.
 
->All requests are sorted by author ascending..
+> All requests are sorted by author ascending..
 
 **params**
-
-Optional parameters
 
 * `Title`
 * `Author`
@@ -66,22 +69,18 @@ Optional parameters
 * `Offset` *Skip the first books.*
 * `Groupby` *Group books by field. Try: author, genres, year, country or language. Ex.: {"groupby": "author"}.*
 
-Required parameters
-
-* There are no required parameters here, not even tokens or rate limits (For now, be kind and respectful).
-
-### **Basically**
+### **Exemple**
 
 ```javascript
 axios.get("https://vorwartsapi.herokuapp.com/books", {
-    params: {
-      author: "Johann Wolfgang von Goethe",
-      groupby: "author"
-    }
-  })
+	params: {
+		author: "Johann Wolfgang von Goethe",
+    	groupby: "author"
+	}
+})
 ```
 
-### **If everything goes well, expect something like that**
+### **Response**
 
 ```json
 {
@@ -92,7 +91,6 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 			"author": "Johann Wolfgang von Goethe",
 			"books": [
 				{
-					"downloads": [],
 					"_id": "61ba1d7e24a1157ef54f1220",
 					"title": "The Sorrows of Young Werther",
 					"author": "Johann Wolfgang von Goethe",
@@ -101,7 +99,10 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 					],
 					"language": "German",
 					"country": "Germany",
-					"year": 1774
+					"year": 1774,
+					"countryCode": "DE",
+					"user": "caian",
+					"files": []
 				}
 			]
 		}
@@ -109,56 +110,200 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 }
 ```
 
-### **If it not.. 😳**
+### **/countries**
+`GET` | Get countries with books available.
 
-`404` This means that the application has not found any books in these specifications. The params are case-sensitive, so, caution.
+**params**
 
-`406` This means that the 'groupby' selected attribute is not enabled.
+> No parameters are available.
 
-But we response with a nice json saying what exactly happened.
+### **Response**
 
 ```json
 {
-	"status": 400,
-	"ok": false,
-	"message": "no book has found"
+	"status": 200,
+	"ok": true,
+	"data": [
+		"United Kingdom",
+		"Italy",
+		"Germany",
+		"Portugal",
+		"Russian Federation"
+	]
+}
+```
+### **/genres**
+`GET` | Get all genres in the database.
+
+**params**
+
+> No parameters are available.
+
+### **Response**
+
+```json
+{
+	"status": 200,
+	"ok": true,
+	"data": [
+		"Fantasy",
+		"Literary nonsense",
+		"Children's book",
+		"Epistolary novel",
+		"Gothic novel",
+		"Horror fiction",
+		"Horror",
+		"Gothic",
+		"Absurdist fiction",
+		"Fiction",
+		"Mystery",
+		"Epic Poetry",
+		"Philosophical Novel",
+		"Psychological Fiction",
+		"Crime Fiction",
+		"Classic",
+		"Regency Novel"
+	]
 }
 ```
 
-## **"I want to help"**
+## **Institutional endpoints**
 
-* ### **"I program":**
+> They, unlikely public ones, affects the database.
 
-😮‍💨 Ufa.
+### **/signup**
+`POST` | Post an user in the database.
 
-Just make a pull request. I don't know how to manage a project. But as soon as possible, I will deploy it on Heroku. The project follows the MVC pattern. You only need to configure the dotenv file and start coding.
+**params**
+
+* `Username` *At least 4 characters longer.*
+* `Email`
+* `Password` *This will be encrypted.* 
+
+### **Exemple**
+
+```javascript
+axios.post("https://vorwartsapi.herokuapp.com/signup", {
+        username: "Johann Wolfgang von Goethe",
+        email: "goethe@gmail.com",
+        password: "hyper secure password"
+    })
+```
+
+### **Response**
+
+```json
+{ "status": 201, "ok": true }
+```
+
+### **/login**
+`GET` | Make authentication in passed credentials.
+
+**params**
+
+* `Username`
+* `Password`
+
+### **Exemple**
+
+```javascript
+axios.get("https://vorwartsapi.herokuapp.com/login", {
+        params: {
+          username: "Johann Wolfgang von Goethe",
+          password: "hyper secure password"
+        }
+      })
+```
+
+### **Response**
+
+```json
+{
+        "status": 200,
+        "ok": true,
+        "message": "user authenticated",
+        "token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxZGVhZTI3NDZkNTc4ZDVjZDkyNDIiLCJpYXQiOjE2NDk1MzM1MjEsImV4cCI6MTY0OTYxOTkyMX0.LnT2VN9xYRzQGOWKc1RglIgScRI5_mYaEX6eIV_wwWg",
+        "username": "Johann Wolfgang von Goethe",
+        "email": "goethe@gmail.com"
+      }
+```
+
+### **/token**
+`GET` | Creates a token. *This token longer for 1 week*
+
+> This method will soon be improved by creating a token manager.
+
+**params**
+
+* `Token` *Pass the current token throught headers as "authorization"*
+
+### **Exemple**
  
-.env:
-`BD_URL=`
-
-`node src/app.js` or  `yarn run start` to run.
-
-```
-± yarn start
-yarn run v1.22.11
-$ node src/app.js
-We've taken off 🛫 on 3001 port
+```javascript
+axios.get("https://vorwartsapi.herokuapp.com/token", {
+        headers: {
+          "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxZGVhZTI3NDZkNTc4ZDVjZDkyNDIiLCJpYXQiOjE2NDk1MzM1MjEsImV4cCI6MTY0OTYxOTkyMX0.LnT2VN9xYRzQGOWKc1RglIgScRI5_mYaEX6eIV_wwWg",
+        }
+      })
 ```
 
-* ### **"I don't program":**
+### **Response**
 
-We'll be back for you, I promise <3. Since you're on GitHub, if you know how to commit, any help with bringing new books to Vorwärts is welcome in the [library](https://github.com/vonweinkeller/vorwarts-library) repository. Just be careful and pay attention to whether the book is in the public domain and whether there is copyright on the translation.
+```json
+{
+	"status": 201,
+	"ok": true,
+	"token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRlNGQxODk0MDdiNTE2OThmZDk3NDkiLCJpYXQiOjE2NDk3MDQ0NDMsImV4cCI6MTY0OTc5MDg0M30.F_qLlM5aQGUjnPH_sMevG5YrKRoEzLQ5uWZ-6pnFveQ"
+}
+```
 
-## **Issues**
+### **/book**
+`POST` | Publish a book in the database.
 
-- [ ] All parameters are case-sensitive, which makes the request more likely to respond with no results A solution will be implemented as soon as I figure out a good solution.
-- [ ] Find bugs to put here.
+> File uploads are not available yet.
 
-> Is it worth it? Everything is worth the effort<br>
-> If the soul isn't small.<br>
-> Who wants to pass beyond Bojador<br>
-> Must first pass beyond the suffering.<br>
-> God gave to the sea danger and the abyss,<br>
-> But in it lies what the sky mirrored.<br>
+**params**
 
-**Fernando Pessoa, Portuguese Sea**.
+* `Token` *Pass the current form through the headers as "authorization".*
+
+### **Exemple**
+ 
+```javascript
+axios.get("https://vorwartsapi.herokuapp.com/token", {
+        headers: {
+          "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjUxZGVhZTI3NDZkNTc4ZDVjZDkyNDIiLCJpYXQiOjE2NDk1MzM1MjEsImV4cCI6MTY0OTYxOTkyMX0.LnT2VN9xYRzQGOWKc1RglIgScRI5_mYaEX6eIV_wwWg",
+        }
+      })
+```
+
+### **Response**
+
+```json
+{
+	"status": 201,
+	"ok": true,
+	"token": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjRlNGQxODk0MDdiNTE2OThmZDk3NDkiLCJpYXQiOjE2NDk3MDQ0NDMsImV4cCI6MTY0OTc5MDg0M30.F_qLlM5aQGUjnPH_sMevG5YrKRoEzLQ5uWZ-6pnFveQ"
+}
+```
+ 
+## **How to configure the project**
+
+This is a simple MVC server in Node.
+
+Set `.env` file with
+
+```
+BD_URL={mongoose database url}
+JSON_WEB_TOKEN_KEY=//any string of your choice
+```
+
+Use `npm start` or `node src/app.js`
+
+```
+▲ npm start
+
+> vorwarts@1.0.0 start
+> node src/app.js
+
+We've taken off 🛫 on 4000 port
+```

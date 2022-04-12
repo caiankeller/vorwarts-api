@@ -22,7 +22,7 @@ module.exports = {
       return res.status(404).send({
         status: 404,
         ok: false,
-        message: 'User hasn\'t been found.'
+        message: "User hasn't been found."
       })
     }
 
@@ -37,9 +37,13 @@ module.exports = {
 
       const { _id } = user
 
-      const token = `Bearer ${jwt.sign({ _id }, process.env.JSON_WEB_TOKEN_KEY, {
-        expiresIn: 86400
-      })}`
+      const token = `Bearer ${jwt.sign(
+        { _id },
+        process.env.JSON_WEB_TOKEN_KEY,
+        {
+          expiresIn: 86400
+        }
+      )}`
 
       return res.status(200).send({
         status: 200,
@@ -87,7 +91,7 @@ module.exports = {
           return res.status(404).send({
             status: 404,
             ok: false,
-            message: 'user not found.'
+            message: 'User not found.'
           })
         }
 
@@ -121,17 +125,34 @@ module.exports = {
         username,
         password: hash,
         email
-      }).then(() => {
-        return res.status(201).send({
-          status: 201,
-          ok: true
-        })
-      }).catch((er) => res.status(400).send({
-        status: 400,
-        ok: false,
-        message: 'An unexpected error occured.'
       })
-      )
+        .then(() => {
+          return res.status(201).send({
+            status: 201,
+            ok: true
+          })
+        })
+        .catch((er) =>
+          res.status(400).send({
+            status: 400,
+            ok: false,
+            message: 'An unexpected error occured.'
+          })
+        )
+    })
+  },
+  async createToken (req, res) {
+    const _id = req.user._id
+
+    // creating token that expires in week
+    const token = `Bearer ${jwt.sign({ _id }, process.env.JSON_WEB_TOKEN_KEY, {
+      expiresIn: 604800
+    })}`
+
+    return res.status(201).send({
+      status: 201,
+      ok: true,
+      token: token
     })
   }
 }
