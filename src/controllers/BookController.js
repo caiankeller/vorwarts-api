@@ -171,8 +171,7 @@ module.exports = {
     )
 
     await Book.create({
-      body,
-      user
+      ...body, user
     })
       .then((re) => {
         return res.status(201).send({
