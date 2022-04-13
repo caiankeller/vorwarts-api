@@ -57,15 +57,24 @@ Vorwärts was born to be an easy way to get books in the public domain, free of 
 
 **parameters**
 
-- `Title`
-- `Author`
-- `Year` _Year of publication. Ex.: {"year": "1984"}._
-- `Country` _Stands for the country where the book was originally published. The short version of the name should be used. Ex.: {"country": "Germany"}._
-- `Language` _Language originally written, the download options will usually be in the same language._
-- `Genres` _A slightly different field. To pass more than one gender, divide it into commas. Ex.: {"genres": "Fantasy, Children's Book"}._
-- `Limit` _Stands for limit of books per request. The default limit is 10._
-- `Offset` _Skip the first books._
-- `Groupby` _Group books by field. Try: author, genres, year, country or language. Ex.: {"groupby": "author"}._
+ `Title`
+ 
+ `Author`
+ 
+ `Year` _Year of publication. E.g.: {"year": "1984"}._
+ 
+ `Country` _Stands for the country where the book was originally published. The short version of the name should be used. E.g.: {"country": "Germany"}._
+
+ `Language` _Language originally written, the download options will usually be in the same language._
+ 
+ `Genres` _A slightly different field. To pass more than one gender, divide it into commas. E.g.: {"genres": "Fantasy, Children's Book"}._
+ 
+ `Limit` _Stands for limit of books per request. The default limit is 10._
+ 
+ `Offset` _Skip the first books._
+ 
+ `Groupby` _Group books by field. Try: author, genres, year, country or language. E.g.: {"groupby": "author"}._
+ 
 
 ### **Exemple**
 
@@ -176,9 +185,11 @@ axios.get("https://vorwartsapi.herokuapp.com/books", {
 
 **parameters**
 
-- `Username` _At least 4 characters longer._
-- `Email`
-- `Password` _This will be encrypted._
+`Username` _At least 4 characters longer._
+
+`Email`
+
+`Password` _This will be encrypted._
 
 ### **Exemple**
 
@@ -202,8 +213,9 @@ axios.post("https://vorwartsapi.herokuapp.com/signup", {
 
 **parameters**
 
-- `Username`
-- `Password`
+`Username`
+
+`Password`
 
 ### **Exemple**
 
@@ -237,7 +249,7 @@ axios.get("https://vorwartsapi.herokuapp.com/login", {
 
 **parameters**
 
-- `Token` _Pass the current token throught headers as "authorization"_
+`Token` _Pass the current token throught headers as "authorization"_
 
 ### **Exemple**
 
@@ -268,14 +280,22 @@ axios.get("https://vorwartsapi.herokuapp.com/token", {
 
 **parameters**
 
-- `Token` _Pass the current form through the headers as "authorization"._
-- `Title`
-- `Author`
-- `Year`
-- `Country`
-- `CountryCode` _In Alpha 2. Ex.: US for United States or UK for United Kingdom._
-- `Language`
-- `Genres`
+`Token` _Pass the current through the headers as "authorization"._
+
+`Title`
+
+`Author`
+
+`Year`
+
+`Country` _Tends to write in English, the standart is available [here](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/)._
+
+`CountryCode` _In Alpha 2. Ex.: US for United States or GB for United Kingdom ([see more](https://www.iban.com/country-codes))._
+
+`Language` _Tends to write in Enlgish, the standart is available [here](https://gist.github.com/jrnk/8eb57b065ea0b098d571)._
+
+`Genres` _Array, E.g: ["fantasy", "children's book"]._
+
 
 ### **Exemple**
 
@@ -308,7 +328,7 @@ axios.get("https://vorwartsapi.herokuapp.com/login", {
 
 ## **How to configure the project**
 
-This is a simple MVC server in Node.
+This is a simple MVC server in Node, you won't be lost.
 
 Set `.env` file with
 
