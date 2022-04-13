@@ -1,4 +1,5 @@
 # [**Vorwärts**](https://vorwarts.vercel.app)
+> 
 
 ```json
 {
@@ -57,24 +58,23 @@ Vorwärts was born to be an easy way to get books in the public domain, free of 
 
 **parameters**
 
- `Title`
- 
- `Author`
- 
- `Year` _Year of publication. E.g.: {"year": "1984"}._
- 
- `Country` _Stands for the country where the book was originally published. The short version of the name should be used. E.g.: {"country": "Germany"}._
+`Title`
 
- `Language` _Language originally written, the download options will usually be in the same language._
- 
- `Genres` _A slightly different field. To pass more than one gender, divide it into commas. E.g.: {"genres": "Fantasy, Children's Book"}._
- 
- `Limit` _Stands for limit of books per request. The default limit is 10._
- 
- `Offset` _Skip the first books._
- 
- `Groupby` _Group books by field. Try: author, genres, year, country or language. E.g.: {"groupby": "author"}._
- 
+`Author`
+
+`Year` _Year of publication. E.g.: {"year": "1984"}._
+
+`Country` _Stands for the country where the book was originally published. The short version of the name should be used. E.g.: {"country": "Germany"}._
+
+`Language` _Language originally written, the download options will usually be in the same language._
+
+`Genres` _A slightly different field. To pass more than one gender, divide it into commas. E.g.: {"genres": "Fantasy, Children's Book"}._
+
+`Limit` _Stands for limit of books per request. The default limit is 10._
+
+`Offset` _Skip the first books._
+
+`Groupby` _Group books by field. Try: author, genres, year, country or language. E.g.: {"groupby": "author"}._
 
 ### **Exemple**
 
@@ -290,12 +290,11 @@ axios.get("https://vorwartsapi.herokuapp.com/token", {
 
 `Country` _Tends to write in English, the standart is available [here](https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/)._
 
-`CountryCode` _In Alpha 2. Ex.: US for United States or GB for United Kingdom ([see more](https://www.iban.com/country-codes))._
+`CountryCode` _In Alpha 2. E.g.: US for United States or GB for United Kingdom ([see more](https://www.iban.com/country-codes))._
 
-`Language` _Tends to write in Enlgish, the standart is available [here](https://gist.github.com/jrnk/8eb57b065ea0b098d571)._
+`Language` _Tends to write in English, the standart is available [here](https://gist.github.com/jrnk/8eb57b065ea0b098d571)._
 
 `Genres` _Array, E.g: ["fantasy", "children's book"]._
-
 
 ### **Exemple**
 

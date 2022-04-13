@@ -1,18 +1,27 @@
 const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
+const validator = require('validator')
 require('dotenv').config()
 
-// 95% built by copilot :D
+// 90% built by copilot, it's incredible to how abstract he can be
 module.exports = {
   async authenticationUser (req, res) {
     const { username, password } = req.query
 
-    if (!username || !password) {
+    if (validator.isEmpty(username)) {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'Username or password is empty.'
+        message: 'Username is required.'
+      })
+    }
+
+    if (validator.isEmpty(password)) {
+      return res.status(400).send({
+        status: 400,
+        ok: false,
+        message: 'Password is required.'
       })
     }
 
@@ -101,14 +110,48 @@ module.exports = {
     })
   },
   async createUser (req, res) {
-    const { username, password, email } = req.body
-    console.log(username, password, email)
+    const { password, email } = req.body
+    const username = req.body.username.toString().toLowerCase()
 
-    if (!username || !password || !email) {
+    if (validator.isEmpty(username)) {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'Username, password or email is empty.'
+        message: 'Username is required.'
+      })
+    }
+
+    if (validator.isEmpty(password)) {
+      return res.status(400).send({
+        status: 400,
+        ok: false,
+        message: 'Password is required.'
+      })
+    }
+
+    if (validator.isLength(password, { min: 8, max: 32 })) {
+      return res.status(400).send({
+        status: 400,
+        ok: false,
+        message: 'Password must be between 8 and 32 characters.'
+      })
+    }
+
+    if (validator.isEmpty(email) && !validator.isEmail(email)) {
+      return res.status(400).send({
+        status: 400,
+        ok: false,
+        message: 'Email is required.'
+      })
+    }
+
+    const user = await User.findOne({ username: username })
+
+    if (user) {
+      return res.status(409).send({
+        status: 409,
+        ok: false,
+        message: 'Username already exists.'
       })
     }
 
@@ -132,7 +175,7 @@ module.exports = {
             ok: true
           })
         })
-        .catch((er) =>
+        .catch(() =>
           res.status(400).send({
             status: 400,
             ok: false,
@@ -144,9 +187,8 @@ module.exports = {
   async createToken (req, res) {
     const _id = req.user._id
 
-    // creating token that expires in week
     const token = `Bearer ${jwt.sign({ _id }, process.env.JSON_WEB_TOKEN_KEY, {
-      expiresIn: 604800
+      expiresIn: 604800 // 1 week longer token
     })}`
 
     return res.status(201).send({

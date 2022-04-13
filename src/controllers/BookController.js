@@ -1,5 +1,6 @@
 const Book = require('../models/Book')
 const { _ } = require('lodash')
+const validator = require('validator')
 
 module.exports = {
   async getBooks (req, res) {
@@ -110,7 +111,7 @@ module.exports = {
           .status(200)
           .send({ status: 200, ok: true, data: _.uniq(genres) })
       })
-      .catch((er) => {
+      .catch(() => {
         return res.status(400).send({
           status: 400,
           ok: false,
@@ -133,7 +134,7 @@ module.exports = {
           .status(200)
           .send({ status: 200, ok: true, data: _.uniq(countries) })
       })
-      .catch((er) => {
+      .catch(() => {
         return res.status(400).send({
           status: 400,
           ok: false,
@@ -142,36 +143,35 @@ module.exports = {
       })
   },
   async postBook (req, res) {
-    const { title, author, year, country, language, genres, countryCode } = req.body
+    const { title, author, year, country, language, genres, countryCode } =
+      req.body
     const user = req.user.username
 
-    const bodies = {
-      title,
-      author,
-      year,
-      country,
-      language,
-      genres,
-      countryCode
+    let error = false
+
+    error = validator.isEmpty(title)
+    error = validator.isEmpty(author)
+    error = validator.isNumeric(year.toString())
+    error = validator.isEmpty(country)
+    error = validator.isEmpty(language)
+
+    if (error) {
+      return res.status(400).send({
+        status: 400,
+        ok: false,
+        message: 'An unexpected error occured. aaa'
+      })
     }
 
-    // check if all fields are filled
-    const body = Object.fromEntries(
-      Object.entries(bodies).map(([key, value]) => {
-        if (typeof value !== 'undefined' && value.length > 0) {
-          return [key, value]
-        }
-
-        return res.status(400).send({
-          status: 400,
-          ok: false,
-          message: 'All fields are required.'
-        })
-      })
-    )
-
     await Book.create({
-      ...body, user
+      title,
+      author,
+      year: +year,
+      country,
+      language,
+      countryCode,
+      genres,
+      user
     })
       .then((re) => {
         return res.status(201).send({
@@ -180,11 +180,11 @@ module.exports = {
           message: 'Book created successfully.'
         })
       })
-      .catch((er) => {
+      .catch((re) => {
         return res.status(400).send({
           status: 400,
           ok: false,
-          message: 'An unexpected error occured.'
+          message: re
         })
       })
   }
