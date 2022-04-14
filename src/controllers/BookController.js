@@ -159,7 +159,7 @@ module.exports = {
       return res.status(400).send({
         status: 400,
         ok: false,
-        message: 'An unexpected error occured. aaa'
+        message: 'An unexpected error occured.'
       })
     }
 
@@ -184,7 +184,7 @@ module.exports = {
         return res.status(400).send({
           status: 400,
           ok: false,
-          message: re
+          message: 'An unexpected error occured.'
         })
       })
   }
